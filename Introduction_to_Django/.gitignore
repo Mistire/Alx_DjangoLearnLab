@@ -1,0 +1,11 @@
+env/
+*.sql
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+.vscode/
+
+env/
+venv/
+ENV/
