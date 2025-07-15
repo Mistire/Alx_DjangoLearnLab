@@ -23,9 +23,9 @@ class Book(models.Model):
   #   return f"{self.title} by {self.author}"
 
 class Library(models.Model):
-  name = models.CharField(max_length=100)
+  library_name = models.CharField(max_length=100)
   book = models.ManyToManyField(Book)
 
 class Librarian(models.Model):
-  name = models.CharField(max_length=100)
+  librarian_name = models.CharField(max_length=100)
   library = models.OneToOneField(Library, on_delete=models.CASCADE)
