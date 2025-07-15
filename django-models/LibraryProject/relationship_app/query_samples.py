@@ -6,8 +6,8 @@ from .models import Author, Book, Librarian, Library
 # get_librariyan = Librarian.objects.filter(field_name='library')
 
 
-def get_books_by_author(name):
-  author = Author.objects.get(Author, name=name)
+def get_books_by_author(author_name):
+  author = Author.objects.get(Author, name=author_name)
   return Book.objects.filter(author=author)
 
 def get_books_by_library(library_name):
