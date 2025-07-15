@@ -6,14 +6,14 @@ from .models import Author, Book, Librarian, Library
 # get_librariyan = Librarian.objects.filter(field_name='library')
 
 
-def get_books_by_author(author):
-  author = get_object_or_404(Author, name='name')
+def get_books_by_author(name):
+  author = get_object_or_404(Author, name=name)
   return Book.objects.filter(author=author)
 
-def get_books_by_library(library):
-  library = Library.objects.get(name='library_name')
+def get_books_by_library(library_name):
+  library = Library.objects.get(name=library_name)
   return library.books.all()
 
-def get_librarian_by_library(library):
-  library = Library.objects.get(name='library_name')
+def get_librarian_by_library(library_name):
+  library = Library.objects.get(name=library_name)
   return library.librarian
