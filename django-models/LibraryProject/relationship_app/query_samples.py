@@ -7,7 +7,7 @@ from .models import Author, Book, Librarian, Library
 
 
 def get_books_by_author(name):
-  author = get_object_or_404(Author, name=name)
+  author = Author.objects.get(Author, name=name)
   return Book.objects.filter(author=author)
 
 def get_books_by_library(library_name):
