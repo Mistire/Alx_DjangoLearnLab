@@ -11,9 +11,9 @@ def get_books_by_author(author):
   return Book.objects.filter(author=author)
 
 def get_books_by_library(library):
-  library = get_object_or_404(Library, name='library_name')
+  library = Library.objects.get(name='library_name')
   return library.books.all()
 
 def get_librarian_by_library(library):
-  library = get_object_or_404(Library, name='library_name')
+  library = Library.objects.get(name='library_name')
   return library.librarian
