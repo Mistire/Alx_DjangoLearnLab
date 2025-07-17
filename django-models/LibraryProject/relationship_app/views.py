@@ -15,12 +15,12 @@ def list_books(request):
     {'book': books}
     )
 
-class BookList(ListView):
+class BookListView(ListView):
   model = Book
   template_name = 'relationship_app/list_book.html'
   context_object_name = 'book'
 
-class LibraryDetail(DetailView):
+class LibraryDetailView(DetailView):
   model = Library
   template_name = 'relationship_app/library_detail.html'
   context_object_name = 'library'
