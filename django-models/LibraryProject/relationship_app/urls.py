@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from views import list_books, BookList, LibraryDetail
+from .views import list_books
 
 urlpatterns = [
   path('books_list_func/', list_books, name='books-list-c'),
