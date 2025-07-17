@@ -9,7 +9,7 @@ def list_books_with_author(request):
   books = Book.objects.all()
   return render(
     request, 
-    'relationship_app/list_book.html', 
+    'relationship_app/list_books.html', 
     {'book': books}
     )
 
