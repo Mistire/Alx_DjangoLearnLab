@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
-  path('register/', CreateView.as_view(template_name='relationship_app/register.html'), name='register'),
+  path('register/', views.RegisterView.as_view(), name='register'),
   path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
   path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
   path('books_list/', list_books, name='books-list-c'),
