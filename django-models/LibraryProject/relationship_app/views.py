@@ -3,7 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.views.generic import LoginView, LogoutView, CreateView
+
 from django.views.generic.detail import DetailView
 
 
@@ -33,33 +36,16 @@ class LibraryDetailView(DetailView):
 
 
 
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'relationship_app/register.html', {'form': form})
+class UserRegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')  # Redirect to login after successful registration
 
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, 'Login successful!')
-            return redirect('home')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'relationship_app/login.html', {'form': form})
+class UserLoginView(LoginView):
+    template_name = 'relationship_app/login.html'
 
 
-def logout_view(request):
-    logout(request)
-    return render(request, 'relationship_app/logout.html')
+class UserLogoutView(LogoutView):
+    template_name = 'relationship_app/logout.html'
 
