@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import list_books
+from .views import list_books, register
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm

@@ -24,6 +24,18 @@ def list_books(request):
     {'book': books}
     )
 
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log in the user after registration
+            messages.success(request, 'Registration successful!')
+            return redirect('home')  # Redirect to a page of your choice
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
+
 class BookListView(ListView):
   model = Book
   template_name = 'relationship_app/list_book.html'
