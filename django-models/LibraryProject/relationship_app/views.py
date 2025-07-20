@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
-from django.views.generic import LoginView, LogoutView, CreateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic.edit import CreateView
 
 from django.views.generic.detail import DetailView
 
