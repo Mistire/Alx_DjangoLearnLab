@@ -125,6 +125,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+# These settings improve security by preventing common attacks such as XSS,
+# CSRF, clickjacking, and insecure cookies.
+
 
 DEBUG = False
 CSRF_COOKIE_SECURE = True

@@ -1,0 +1,17 @@
+
+
+
+  <div class="container">
+    <h1>Book List</h1>
+
+    {% if books %}
+      <ul>
+        {% for book in books %}
+          <li>{{ book.title|escape }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No books available.</p>
+    {% endif %}
+  </div>
+{% endblock %}
