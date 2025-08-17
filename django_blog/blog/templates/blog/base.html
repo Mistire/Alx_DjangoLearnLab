@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Django Blog{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+  <header>
+    <h1><a href="/">Django Blog</a></h1>
+  </header>
+
+  <main>
+    {% block content %}
+    <p>Base template ready.</p>
+    {% endblock %}
+  </main>
+
+  <script src="{% static 'blog/app.js' %}"></script>
+</body>
+</html>
