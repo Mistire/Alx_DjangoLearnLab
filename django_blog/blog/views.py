@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .forms import RegistrationForm, UserUpdateForm, ProfileForm, CommentForm
+from .forms import PostForm, RegistrationForm, UserUpdateForm, ProfileForm, CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -61,6 +61,8 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
+    form_class = PostForm
+
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
@@ -70,6 +72,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 # Update a post (only author can update)
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
+    form_class = PostForm
     fields = ['title', 'content']
     template_name = 'blog/post_form.html'
 
