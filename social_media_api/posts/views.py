@@ -5,7 +5,7 @@ from .serializers import PostSerializer, CommentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.contenttypes.models import ContentType
-from rest_framework.generics import get_object_or_404
+from rest_framework import generics
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -43,7 +43,7 @@ class LikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if not created:
@@ -64,7 +64,7 @@ class UnlikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         deleted, _ = Like.objects.filter(user=request.user, post=post).delete()
         if deleted:
             return Response({"detail": "Post unliked successfully."})
