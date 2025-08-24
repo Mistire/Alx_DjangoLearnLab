@@ -1,9 +1,9 @@
-from rest_framework import viewsets, permissions
-from .models import Post, Comment
+from rest_framework import viewsets, permissions, status
+from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from django.contrib.contenttypes.models import ContentType
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -34,3 +34,36 @@ class FeedView(APIView):
 
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+    
+
+
+class LikePostView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+        if not created:
+            return Response({"detail": "You already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if post.author != request.user:
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb="liked your post",
+                target=post
+            )
+
+        return Response({"detail": "Post liked successfully."})
+
+
+class UnlikePostView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        deleted, _ = Like.objects.filter(user=request.user, post=post).delete()
+        if deleted:
+            return Response({"detail": "Post unliked successfully."})
+        return Response({"detail": "You have not liked this post yet."}, status=status.HTTP_400_BAD_REQUEST)
