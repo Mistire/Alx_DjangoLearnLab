@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-7=i!#z)#j%vo$%y1=f+ij6bhjoixy!oq8ci9tfvm(8tnklpne!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://alx-social-media-api.onrender.com/']
 
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
