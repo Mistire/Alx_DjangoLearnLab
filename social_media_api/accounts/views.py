@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import RegisterSerializer, UserSerializer, CustomUserSerializer
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .models import CustomUser
@@ -63,3 +63,12 @@ class UnfollowUserView(APIView):
         request.user.following.remove(target_user)
         return Response({"message": f"You unfollowed {target_user.username}"})
 
+
+class CustomUserListView(generics.GenericAPIView):
+    queryset = CustomUser.objects.all() 
+    serializer_class = CustomUserSerializer
+
+    def get(self, request, *args, **kwargs):
+        users = self.get_queryset()
+        serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data)
